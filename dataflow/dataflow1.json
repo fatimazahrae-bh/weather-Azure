@@ -1,0 +1,91 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "regiondimcsv",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "datedimcsv",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				},
+				{
+					"dataset": {
+						"referenceName": "weathermetricscsv",
+						"type": "DatasetReference"
+					},
+					"name": "source3"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "datedimcsv",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "dateDimCleaned",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"parameters{",
+				"     parameter1 as string",
+				"}",
+				"source(output(",
+				"          RegionID as integer,",
+				"          RegionName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source(output(",
+				"          DateID as integer,",
+				"          Date as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
+				"source(output(",
+				"          DateID as string,",
+				"          RegionID as string,",
+				"          AverageTemperature as string,",
+				"          Humidity as string,",
+				"          WindSpeed as string,",
+				"          Rainfall as string,",
+				"          SunshineHours as string",
+				"     ),",
+				"     allowSchemaDrift: false,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source3",
+				"source1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          DateID as string,",
+				"          Date as string",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1",
+				"source2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink2"
+			]
+		}
+	}
+}

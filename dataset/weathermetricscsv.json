@@ -1,0 +1,53 @@
+{
+	"name": "weathermetricscsv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "FZAzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "weathermetrics.csv",
+				"container": "first-project"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "DateID",
+				"type": "String"
+			},
+			{
+				"name": "RegionID",
+				"type": "String"
+			},
+			{
+				"name": "AverageTemperature",
+				"type": "String"
+			},
+			{
+				"name": "Humidity",
+				"type": "String"
+			},
+			{
+				"name": "WindSpeed",
+				"type": "String"
+			},
+			{
+				"name": "Rainfall",
+				"type": "String"
+			},
+			{
+				"name": "SunshineHours",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

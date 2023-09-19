@@ -1,0 +1,12 @@
+{
+	"name": "FZAzureBlobStorage1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=fatimazahrae;EndpointSuffix=core.windows.net;",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDQ3MDA2Q0M1LTZDMTQtNEY0OS05OTk1LThERUJBRDlFODMyNF9iN2U0MTNhNS1iZTZjLTQ4ZGYtYjc3NS0zYjVmOGYyMTMzMmIiDQp9"
+		}
+	}
+}
