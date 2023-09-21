@@ -7,9 +7,41 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "fatimazahrae"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"AzureSqlDatabase2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase2'"
+		},
+		"AzureSqlDatabase3_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase3'"
+		},
+		"AzureSqlDatabase4_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase4'"
+		},
 		"FZAzureBlobStorage1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'FZAzureBlobStorage1'"
+		},
+		"test_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'test'"
+		},
+		"test2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'test2'"
+		},
+		"test3_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'test3'"
 		},
 		"containerUri": {
 			"type": "string",
@@ -38,12 +70,56 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
+					"AzureSqlDatabase1_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
+					},
+					"AzureSqlDatabase2_connectionString": {
+						"value": "[parameters('AzureSqlDatabase2_connectionString')]"
+					},
+					"AzureSqlDatabase3_connectionString": {
+						"value": "[parameters('AzureSqlDatabase3_connectionString')]"
+					},
+					"AzureSqlDatabase4_connectionString": {
+						"value": "[parameters('AzureSqlDatabase4_connectionString')]"
+					},
 					"FZAzureBlobStorage1_connectionString": {
 						"value": "[parameters('FZAzureBlobStorage1_connectionString')]"
+					},
+					"test_connectionString": {
+						"value": "[parameters('test_connectionString')]"
+					},
+					"test2_connectionString": {
+						"value": "[parameters('test2_connectionString')]"
+					},
+					"test3_connectionString": {
+						"value": "[parameters('test3_connectionString')]"
 					}
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "fatimazahrae_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'fatimazahrae_ArmTemplate_0')]"
+			]
 		}
 	]
 }

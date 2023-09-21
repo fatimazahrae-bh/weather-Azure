@@ -5,7 +5,31 @@
 		"factoryName": {
 			"value": "fatimazahrae"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase2_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase3_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase4_connectionString": {
+			"value": ""
+		},
 		"FZAzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"test_connectionString": {
+			"value": ""
+		},
+		"test2_connectionString": {
+			"value": ""
+		},
+		"test3_connectionString": {
 			"value": ""
 		},
 		"containerUri": {
