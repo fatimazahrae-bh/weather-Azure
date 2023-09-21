@@ -1,0 +1,27 @@
+{
+	"name": "AzureSqlTableregiondim",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "RegionID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "RegionName",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "regiondim"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

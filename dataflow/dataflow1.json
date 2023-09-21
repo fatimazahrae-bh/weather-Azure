@@ -6,105 +6,129 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "regiondimcsv",
+						"referenceName": "datedim",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "datedim"
 				},
 				{
 					"dataset": {
-						"referenceName": "datedimcsv",
+						"referenceName": "regiondim",
 						"type": "DatasetReference"
 					},
-					"name": "source2"
+					"name": "regiondim"
 				},
 				{
 					"dataset": {
-						"referenceName": "weathermetricscsv",
+						"referenceName": "weathermetrics",
 						"type": "DatasetReference"
 					},
-					"name": "source3"
+					"name": "weather"
 				}
 			],
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "datedimcsv",
+						"referenceName": "AzureSqlTableDateDim",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
 				},
 				{
 					"dataset": {
-						"referenceName": "dateDimCleaned",
+						"referenceName": "AzureSqlTableregiondim",
 						"type": "DatasetReference"
 					},
 					"name": "sink2"
 				},
 				{
 					"dataset": {
-						"referenceName": "weathermetricscsv",
+						"referenceName": "AzureSqlTableweather",
 						"type": "DatasetReference"
 					},
 					"name": "sink3"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "alterRow1"
+				}
+			],
 			"scriptLines": [
-				"parameters{",
-				"     parameter1 as string",
-				"}",
-				"source(output(",
-				"          RegionID as integer,",
-				"          RegionName as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1",
 				"source(output(",
 				"          DateID as integer,",
 				"          Date as date",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source2",
+				"     ignoreNoFilesFound: false) ~> datedim",
+				"source(output(",
+				"          RegionID as integer,",
+				"          RegionName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> regiondim",
 				"source(output(",
 				"          DateID as integer,",
 				"          RegionID as integer,",
-				"          AverageTemperature as double,",
-				"          Humidity as double,",
-				"          WindSpeed as double,",
-				"          Rainfall as double,",
-				"          SunshineHours as double",
+				"          AverageTemperature as integer,",
+				"          Humidity as integer,",
+				"          WindSpeed as integer,",
+				"          Rainfall as integer,",
+				"          SunshineHours as integer",
 				"     ),",
-				"     allowSchemaDrift: false,",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source3",
-				"source1 sink(allowSchemaDrift: true,",
+				"     ignoreNoFilesFound: false) ~> weather",
+				"regiondim alterRow(upsertIf(1==1)) ~> alterRow1",
+				"datedim sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          DateID as string,",
-				"          Date as string",
+				"          DateID as integer,",
+				"          Date as date",
 				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1",
-				"source2 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink2",
-				"source3 sink(allowSchemaDrift: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1",
+				"alterRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          DateID as string,",
-				"          RegionID as string,",
-				"          AverageTemperature as string,",
-				"          Humidity as string,",
-				"          WindSpeed as string,",
-				"          Rainfall as string,",
-				"          SunshineHours as string",
+				"          RegionID as integer,",
+				"          RegionName as string",
 				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink3"
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink2",
+				"weather sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          DateID as integer,",
+				"          RegionID as integer,",
+				"          AverageTemperature as integer,",
+				"          Humidity as integer,",
+				"          WindSpeed as integer,",
+				"          Rainfall as integer,",
+				"          SunshineHours as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink3"
 			]
 		}
 	}
